@@ -9,7 +9,6 @@ import io.vertx.jdbcclient.JDBCPool;
 import io.vertx.jdbcclient.SqlOutParam;
 import io.vertx.sqlclient.PoolOptions;
 import io.vertx.sqlclient.Row;
-import io.vertx.sqlclient.RowSet;
 import io.vertx.sqlclient.Tuple;
 
 public class RepCaseMain extends AbstractVerticle {
@@ -22,7 +21,6 @@ public class RepCaseMain extends AbstractVerticle {
   public void start(Promise<Void> startPromise) throws Exception {
 
       JDBCConnectOptions jdbcOptions = new JDBCConnectOptions()
-                    // H2 connection string
                     .setJdbcUrl("jdbc:postgresql://localhost:5432/template1")
                     .setUser("postgres")
                     .setPassword("postgres");
