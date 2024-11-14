@@ -8,6 +8,8 @@ import io.vertx.jdbcclient.JDBCConnectOptions;
 import io.vertx.jdbcclient.JDBCPool;
 import io.vertx.jdbcclient.SqlOutParam;
 import io.vertx.sqlclient.PoolOptions;
+import io.vertx.sqlclient.Row;
+import io.vertx.sqlclient.RowSet;
 import io.vertx.sqlclient.Tuple;
 
 public class RepCaseMain extends AbstractVerticle {
@@ -31,9 +33,12 @@ public class RepCaseMain extends AbstractVerticle {
 
       startPromise.complete();
 
-      pool.preparedQuery("{call repcase(?)}")
+      pool.preparedQuery("call repcase(?)")
         .execute(Tuple.of(SqlOutParam.OUT(JDBCType.VARCHAR)))
         .onFailure( err -> err.printStackTrace() )
-        .onSuccess( succ -> System.out.println(succ.rowCount()) );
+        .onSuccess( succ -> {
+          Row row = succ.iterator().next();
+          System.out.print(row.getString(0));
+        });
   }
 }
